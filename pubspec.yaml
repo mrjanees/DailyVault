@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   cupertino_icons: ^1.0.2
+  custom_navigation_bar: ^0.8.2
   dio: 4.0.4
   flutter:
     sdk: flutter

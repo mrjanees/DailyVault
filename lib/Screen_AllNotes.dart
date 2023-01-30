@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:note_app/App_theme.dart';
+import 'package:note_app/Custom_Navigation_Bar.dart';
 import 'package:note_app/Data/Data_Calling.dart';
 import 'package:note_app/Screen_Add_Note.dart';
 import 'package:note_app/Screen_Edit_Note.dart';
@@ -144,15 +145,7 @@ class Screen_AllNotes extends StatelessWidget {
           ),
         ),
       ),
-      // ignore: prefer_const_literals_to_create_immutables
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          const BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: themeProvider.Inside_Text_color())
-        ],
-      ),
+      bottomNavigationBar: NAvigationBar(),
     );
   }
 }
