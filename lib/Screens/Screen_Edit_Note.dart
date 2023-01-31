@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note_app/App_theme.dart';
+import 'package:note_app/Theme/App_theme.dart';
 import 'package:note_app/Data/Data_Calling.dart';
-import 'package:note_app/Screen_AllNotes.dart';
+import 'package:note_app/Screens/Home_Screen.dart';
+import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +75,7 @@ class ScreenEditNote extends StatelessWidget {
                           await clicktoedit();
                           Navigator.of(context)
                               .pop(MaterialPageRoute(builder: (context) {
-                            return Screen_AllNotes();
+                            return const ScreenAllNotes();
                           }));
                         },
                         icon: Icon(Icons.check_circle),

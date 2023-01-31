@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:note_app/Screen_AllNotes.dart';
-import 'package:note_app/color_constant.dart';
+import 'package:note_app/Screens/Home_Screen.dart';
+import 'package:note_app/Theme/color_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -43,14 +43,16 @@ class ThemeProvider with ChangeNotifier {
             IsLightTheme ? App_colors.white : App_colors.dark_black);
   }
 
-  List<Color> light_md_cl = [
+  List<Color> light_md_cl = const [
     Color.fromARGB(255, 242, 204, 79),
     Color.fromARGB(255, 238, 156, 34)
   ];
-  List<Color> dark_md_cl = [
+
+  List<Color> dark_md_cl = const [
     Color.fromARGB(255, 255, 17, 92),
     Color.fromARGB(255, 255, 0, 38)
   ];
+
   Theme_note() {
     if (IsLightTheme) {
       return light_md_cl;
@@ -64,6 +66,22 @@ class ThemeProvider with ChangeNotifier {
       return Color.fromARGB(255, 22, 22, 22);
     } else {
       return App_colors.white;
+    }
+  }
+
+  navIconcolorLight() {
+    if (IsLightTheme) {
+      return Color.fromARGB(255, 255, 247, 176);
+    } else {
+      return Color.fromARGB(255, 255, 0, 38);
+    }
+  }
+
+  navIconcolorDark() {
+    if (IsLightTheme) {
+      return Color.fromARGB(255, 177, 171, 125);
+    } else {
+      return Color.fromARGB(255, 182, 1, 28);
     }
   }
 }

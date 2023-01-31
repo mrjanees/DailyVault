@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:note_app/App_theme.dart';
+import 'package:note_app/Theme/App_theme.dart';
 import 'package:note_app/Data/Data_Calling.dart';
+import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
 
-import 'Screen_AllNotes.dart';
+import 'Home_Screen.dart';
 
 enum ActionType {
   addnote,
@@ -132,7 +133,7 @@ class ScreenAddnote extends StatelessWidget {
                         Navigator.of(context).pop(
                           MaterialPageRoute(
                             builder: (ctx) {
-                              return Screen_AllNotes();
+                              return const ScreenAllNotes();
                             },
                           ),
                         );

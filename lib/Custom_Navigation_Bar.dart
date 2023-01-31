@@ -3,9 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:provider/provider.dart';
 
-import 'App_theme.dart';
+import 'Theme/App_theme.dart';
 
-ValueNotifier<int> _currentIndexNotifier = ValueNotifier(0);
+ValueNotifier<int> currentIndexNotifier = ValueNotifier(0);
 
 class NAvigationBar extends StatelessWidget {
   const NAvigationBar({super.key});
@@ -16,22 +16,33 @@ class NAvigationBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
       child: ValueListenableBuilder(
-        valueListenable: _currentIndexNotifier,
+        valueListenable: currentIndexNotifier,
         builder: (BuildContext context, newvalue, Widget? child) {
           return CustomNavigationBar(
+            unSelectedColor: themeProvider.navIconcolorDark(),
+            selectedColor: themeProvider.navIconcolorLight(),
             onTap: (value) {
-              print(value);
-              _currentIndexNotifier.value = value;
+              currentIndexNotifier.value = value;
             },
             currentIndex: newvalue,
             backgroundColor: themeProvider.Headline_Color(),
             borderRadius: const Radius.circular(10),
             items: [
               CustomNavigationBarItem(
-                  icon: const Icon(Icons.home), title: const Text('Home')),
+                icon: const Icon(
+                  Icons.home,
+                ),
+                title: Text(
+                  'Home',
+                  style: TextStyle(color: themeProvider.Inside_Text_color()),
+                ),
+              ),
               CustomNavigationBarItem(
                   icon: const Icon(Icons.favorite),
-                  title: const Text('Favorite'))
+                  title: Text(
+                    'Favorite',
+                    style: TextStyle(color: themeProvider.Inside_Text_color()),
+                  ))
             ],
           );
         },

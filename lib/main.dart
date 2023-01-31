@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:note_app/App_theme.dart';
-import 'package:note_app/Screen_AllNotes.dart';
-import 'package:note_app/color_constant.dart';
+import 'package:note_app/Theme/App_theme.dart';
+import 'package:note_app/Screens/Home_Screen.dart';
+import 'package:note_app/Theme/color_constant.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeProvider.themeData(),
-      home: Screen_AllNotes(),
+      home: HomeScreen(),
     );
   }
 }
