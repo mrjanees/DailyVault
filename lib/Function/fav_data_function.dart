@@ -33,40 +33,33 @@ class FavFunction extends ChangeNotifier implements FavDataCalling {
   }
 
   @override
-  Future<void> insertFavData(FavModel value) async {
-    final data = await getFavData();
-
-    data.forEach((element) {
-      if (element.id == value.id) {
-        _isexist = true;
-      } else {
-        _isexist = false;
-      }
-    });
-
-    if (_isexist) {
-      deleteFAvData(value.id);
-      _isexist = false;
-    } else {
+  Future<bool> insertFavData(FavModel value) async {
+    final data = favListNotifier.value;
+    var contain = data.where((element) => element.id == value.id);
+    if (contain.isEmpty) {
       final element = await Hive.openBox<FavModel>(hiveKey);
       element.put(value.id, value);
+
+      notifyListeners();
       refreshUi();
+    } else {
+      notifyListeners();
+      deleteFAvData(value.id);
     }
+    return iconval;
   }
 
-  Future<bool> isexistfunction(String id) async {
-    final data = await getFavData();
-    print(data);
-    data.forEach((element) {
-      if (element.id == id) {
-        _iconval = true;
-      } else {
-        _iconval = false;
-      }
-      notifyListeners();
-    });
+  bool isexistfunction(String id) {
+    final data = favListNotifier.value;
 
-    print(_iconval);
+    var contain = data.where((element) => element.id == id);
+    if (contain.isEmpty) {
+      _iconval = false;
+      notifyListeners();
+    } else {
+      _iconval = true;
+      notifyListeners();
+    }
     return iconval;
   }
 

@@ -69,6 +69,7 @@ class ScreenEditNote extends StatelessWidget {
                         width: 90,
                       ),
                       IconButton(
+                        color: themeprovider.Headline_Color(),
                         padding: EdgeInsets.zero,
                         constraints: BoxConstraints(),
                         onPressed: () async {
