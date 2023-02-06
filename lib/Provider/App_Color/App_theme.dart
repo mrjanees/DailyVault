@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:note_app/Screens/Home_Screen.dart';
-import 'package:note_app/Theme/color_constant.dart';
+import 'package:note_app/Provider/App_Color/color_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider with ChangeNotifier {
@@ -40,7 +40,7 @@ class ThemeProvider with ChangeNotifier {
   ThemeData themeData() {
     return ThemeData(
         scaffoldBackgroundColor:
-            IsLightTheme ? App_colors.white : App_colors.dark_black);
+            IsLightTheme ? App_colors.white : Color.fromARGB(255, 32, 30, 30));
   }
 
   List<Color> light_md_cl = const [
@@ -69,19 +69,27 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 
-  navIconcolorLight() {
+  navIconcolorSelected() {
     if (IsLightTheme) {
-      return Color.fromARGB(255, 255, 247, 176);
+      return Color.fromARGB(255, 31, 31, 31);
     } else {
-      return Color.fromARGB(255, 255, 0, 38);
+      return Color.fromARGB(255, 222, 222, 222);
     }
   }
 
-  navIconcolorDark() {
+  navIconcolorUnselected() {
     if (IsLightTheme) {
-      return Color.fromARGB(255, 177, 171, 125);
+      return Color.fromARGB(255, 188, 187, 187);
     } else {
-      return Color.fromARGB(255, 182, 1, 28);
+      return Color.fromARGB(255, 129, 128, 128);
+    }
+  }
+
+  navBarShapeColor() {
+    if (IsLightTheme) {
+      return Color.fromARGB(255, 234, 234, 234);
+    } else {
+      return Color.fromARGB(255, 47, 47, 47);
     }
   }
 }

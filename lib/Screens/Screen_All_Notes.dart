@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:note_app/Function/fav_data_function.dart';
+import 'package:note_app/Provider/Fav_Icon/Fav_Icon.dart';
+import 'package:note_app/favorite_model/favoriteModel.dart';
 import 'package:provider/provider.dart';
 
-import '../Theme/App_theme.dart';
-import '../Data/Data_Calling.dart';
+import '../Provider/App_Color/App_theme.dart';
+import '../Function/Note_Data_Calling.dart';
 import 'Screen_Add_Note.dart';
 import 'Screen_Edit_Note.dart';
 import '../note_model/note_model.dart';
 
 const double VD_length = 0;
+bool isexist = false;
 
 class ScreenAllNotes extends StatelessWidget {
   const ScreenAllNotes({super.key});
@@ -108,15 +112,15 @@ class ScreenAllNotes extends StatelessWidget {
                         return ScreenAddnote();
                       }));
                     },
-                    icon: Icon(Icons.add_circle))
+                    icon: const Icon(Icons.add_circle))
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Expanded(
                 child: ValueListenableBuilder(
-              valueListenable: Data_fuctions.instance.NoteNotifier,
+              valueListenable: NoteNotifier,
               builder: (context, List<NoteModel> newValue, child) {
                 return GridView.count(
                   crossAxisCount: 2,
@@ -149,14 +153,22 @@ class MyNote extends StatelessWidget {
   final String? content;
   MyNote({
     Key? key,
-    this.id,
+    required this.id,
     required this.title,
     required this.content,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        ThemeProvider themeProvider =
+            Provider.of<ThemeProvider>(context, listen: false);
+        final favIconProvider =
+            Provider.of<FavFunction>(context, listen: false);
+      },
+    );
+    // ValueNotifier<bool> FavIcon = ValueNotifier(false);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -171,11 +183,13 @@ class MyNote extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: themeProvider.Theme_note()),
+          gradient: LinearGradient(
+              colors: context.watch<ThemeProvider>().Theme_note()),
           borderRadius: BorderRadius.circular(12),
         ),
         padding: const EdgeInsets.only(left: 5, top: 5),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -186,20 +200,25 @@ class MyNote extends StatelessWidget {
                     width: 105,
                     child: Text(
                       title!,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
                   IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    iconSize: 20,
-                    color: Colors.white,
-                    onPressed: () {},
-                    icon: FaIcon(FontAwesomeIcons.heart),
-                  ),
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                      iconSize: 20,
+                      color: Colors.white,
+                      onPressed: () {
+                        favSaveClick(title, content, id);
+                      },
+                      // ignore: unrelated_type_equality_checks
+                      icon: context.watch<FavFunction>().isexistfunction(id!) ==
+                              true
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border)),
                   const VerticalDivider(
                     width: 15,
                     color: Colors.white,
@@ -213,6 +232,7 @@ class MyNote extends StatelessWidget {
                     iconSize: 22,
                     onPressed: () {
                       Data_fuctions.instance.Delete_all(id!);
+                      FavFunction.instanse.deleteFAvData(id!);
                     },
                     icon: const Icon(
                       Icons.cancel_rounded,
@@ -234,7 +254,7 @@ class MyNote extends StatelessWidget {
             ),
             Text(
               content!,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontSize: 15,
               ),
@@ -244,5 +264,16 @@ class MyNote extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  favSaveClick(title, content, id) {
+    // print(id);
+    // print(title);
+    // print(content);
+    final titledata = title;
+    final contentData = content;
+    if (titledata.isEmpty || contentData.isEmpty) {}
+    final data = FavModel(content: contentData, title: titledata, id: id);
+    FavFunction.instanse.insertFavData(data);
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/Function/fav_data_function.dart';
 import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/Screens/Screen_Favorite.dart';
 
 import '../Custom_Navigation_Bar.dart';
-import '../Data/Data_Calling.dart';
+import '../Function/Note_Data_Calling.dart';
 
 const double VD_length = 0;
 List pages = const [
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       Data_fuctions.instance.Get_all();
+      FavFunction();
     });
 
     return Scaffold(

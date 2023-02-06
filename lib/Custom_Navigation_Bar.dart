@@ -1,9 +1,10 @@
+import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+
 import 'package:provider/provider.dart';
 
-import 'Theme/App_theme.dart';
+import 'Provider/App_Color/App_theme.dart';
 
 ValueNotifier<int> currentIndexNotifier = ValueNotifier(0);
 
@@ -19,13 +20,13 @@ class NAvigationBar extends StatelessWidget {
         valueListenable: currentIndexNotifier,
         builder: (BuildContext context, newvalue, Widget? child) {
           return CustomNavigationBar(
-            unSelectedColor: themeProvider.navIconcolorDark(),
-            selectedColor: themeProvider.navIconcolorLight(),
+            unSelectedColor: themeProvider.navIconcolorUnselected(),
+            selectedColor: themeProvider.navIconcolorSelected(),
             onTap: (value) {
               currentIndexNotifier.value = value;
             },
             currentIndex: newvalue,
-            backgroundColor: themeProvider.Headline_Color(),
+            backgroundColor: themeProvider.navBarShapeColor(),
             borderRadius: const Radius.circular(10),
             items: [
               CustomNavigationBarItem(
@@ -34,14 +35,14 @@ class NAvigationBar extends StatelessWidget {
                 ),
                 title: Text(
                   'Home',
-                  style: TextStyle(color: themeProvider.Inside_Text_color()),
+                  style: TextStyle(color: themeProvider.Headline_Color()),
                 ),
               ),
               CustomNavigationBarItem(
                   icon: const Icon(Icons.favorite),
                   title: Text(
                     'Favorite',
-                    style: TextStyle(color: themeProvider.Inside_Text_color()),
+                    style: TextStyle(color: themeProvider.Headline_Color()),
                   ))
             ],
           );
