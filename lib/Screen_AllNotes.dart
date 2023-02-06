@@ -147,9 +147,13 @@ class Screen_AllNotes extends StatelessWidget {
       // ignore: prefer_const_literals_to_create_immutables
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',
+              backgroundColor: themeProvider.Inside_Text_color()),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Favorite',
               backgroundColor: themeProvider.Inside_Text_color())
         ],
       ),
