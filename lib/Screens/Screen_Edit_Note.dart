@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:note_app/App_theme.dart';
-import 'package:note_app/Data/Data_Calling.dart';
-import 'package:note_app/Screen_AllNotes.dart';
+import 'package:note_app/Provider/App_Color/App_theme.dart';
+import 'package:note_app/Function/Note_Data_Calling.dart';
+import 'package:note_app/Screens/Screen_Home.dart';
+import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
 
@@ -68,13 +69,14 @@ class ScreenEditNote extends StatelessWidget {
                         width: 90,
                       ),
                       IconButton(
+                        color: themeprovider.Headline_Color(),
                         padding: EdgeInsets.zero,
                         constraints: BoxConstraints(),
                         onPressed: () async {
                           await clicktoedit();
                           Navigator.of(context)
                               .pop(MaterialPageRoute(builder: (context) {
-                            return Screen_AllNotes();
+                            return const ScreenAllNotes();
                           }));
                         },
                         icon: Icon(Icons.check_circle),
@@ -101,8 +103,8 @@ class ScreenEditNote extends StatelessWidget {
                       fontSize: 20,
                       color: themeprovider.Headline_Color(),
                     ),
-                    maxLines: 4,
-                    maxLength: 100,
+                    maxLines: null,
+                    maxLength: null,
                   ),
                 ],
               ),

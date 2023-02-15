@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:note_app/Data/URL.dart';
+import 'package:note_app/Function/URL.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:note_app/note_model_list/note_model_list.dart';
 
@@ -12,14 +12,14 @@ abstract class Data_calls {
   Future<NoteModel?> update_all(NoteModel value);
 }
 
+ValueNotifier<List<NoteModel>> NoteNotifier = ValueNotifier([]);
+
 class Data_fuctions extends Data_calls {
   Data_fuctions.internal();
   static Data_fuctions instance = Data_fuctions.internal();
   Data_fuctions factory() {
     return instance;
   }
-
-  ValueNotifier<List<NoteModel>> NoteNotifier = ValueNotifier([]);
 
   final dio = Dio();
   final url = Url();
@@ -39,7 +39,9 @@ class Data_fuctions extends Data_calls {
     );
 
     final getnoteRes = NoteModelList.fromJson(_response.data);
+
     NoteNotifier.value.clear();
+
     NoteNotifier.value.addAll(getnoteRes.data.reversed);
     NoteNotifier.notifyListeners();
     return getnoteRes.data;

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'favorite_model.dart';
+part of 'favoriteModel.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -18,7 +18,7 @@ class FavModelAdapter extends TypeAdapter<FavModel> {
     };
     return FavModel(
       id: fields[0] as String,
-      titile: fields[1] as String,
+      title: fields[1] as String,
       content: fields[2] as String,
     );
   }
@@ -30,7 +30,7 @@ class FavModelAdapter extends TypeAdapter<FavModel> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.titile)
+      ..write(obj.title)
       ..writeByte(2)
       ..write(obj.content);
   }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:note_app/App_theme.dart';
-import 'package:note_app/Data/Data_Calling.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:note_app/Provider/App_Color/App_theme.dart';
+import 'package:note_app/Function/Note_Data_Calling.dart';
+import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
 
-import 'Screen_AllNotes.dart';
+import 'Screen_Home.dart';
 
 enum ActionType {
   addnote,
@@ -15,6 +17,24 @@ enum ActionType {
 
 final TextEditingController Title_Textformfield = TextEditingController();
 final TextEditingController Content_Textformfield = TextEditingController();
+var snackbar = SnackBar(
+  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+  backgroundColor: const Color.fromARGB(255, 216, 216, 216),
+  content: Row(children: const [
+    Icon(
+      Icons.wifi_off_outlined,
+      color: Colors.black87,
+    ),
+    SizedBox(
+      width: 10,
+    ),
+    Text(
+      'No internet Connection',
+      style: TextStyle(color: Colors.black87),
+    )
+  ]),
+  duration: const Duration(seconds: 5),
+);
 
 class ScreenAddnote extends StatelessWidget {
   ScreenAddnote({
@@ -23,6 +43,16 @@ class ScreenAddnote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      interntCheck() async {
+        final response = await InternetConnectionChecker().hasConnection;
+        if (response == false) {
+          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        } else {
+          return true;
+        }
+      }
+    });
     final themeprovider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: Scaffold(
@@ -72,7 +102,7 @@ class ScreenAddnote extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   TextFormField(
@@ -101,7 +131,7 @@ class ScreenAddnote extends StatelessWidget {
                       color: themeprovider.Headline_Color(),
                     ),
                     maxLines: 4,
-                    maxLength: 100,
+                    maxLength: 2000,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -132,7 +162,7 @@ class ScreenAddnote extends StatelessWidget {
                         Navigator.of(context).pop(
                           MaterialPageRoute(
                             builder: (ctx) {
-                              return Screen_AllNotes();
+                              return const ScreenAllNotes();
                             },
                           ),
                         );
@@ -166,7 +196,7 @@ class ScreenAddnote extends StatelessWidget {
     );
   }
 
-  void Click_to_Save() {
+  void Click_to_Save() async {
     if (Title_Textformfield.text.isEmpty ||
         Content_Textformfield.text.isEmpty) {
       print('Title or Content is null');
@@ -179,7 +209,8 @@ class ScreenAddnote extends StatelessWidget {
         content: Content,
       );
 
-      Data_fuctions().create_all(_data);
+      await Data_fuctions().create_all(_data);
+      Data_fuctions.instance.Get_all();
     }
   }
 }
