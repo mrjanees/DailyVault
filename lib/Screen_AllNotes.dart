@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:note_app/App_theme.dart';
-import 'package:note_app/Data/Data_Calling.dart';
-import 'package:note_app/Screen_Add_Note.dart';
-import 'package:note_app/Screen_Edit_Note.dart';
+import 'package:note_app/Function/Note_Data_Calling.dart';
+import 'package:note_app/Provider/App_Color/App_theme.dart';
+import 'package:note_app/Screens/Screen_Add_Note.dart';
+import 'package:note_app/Screens/Screen_Edit_Note.dart';
 
 import 'package:provider/provider.dart';
 import 'package:note_app/note_model/note_model.dart';
@@ -120,7 +119,7 @@ class Screen_AllNotes extends StatelessWidget {
               ),
               Expanded(
                   child: ValueListenableBuilder(
-                valueListenable: Data_fuctions.instance.NoteNotifier,
+                valueListenable: NoteNotifier,
                 builder: (context, List<NoteModel> newValue, child) {
                   return GridView.count(
                     crossAxisCount: 2,
