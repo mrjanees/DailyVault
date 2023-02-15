@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/Provider/App_Color/App_theme.dart';
 import 'package:note_app/Function/Note_Data_Calling.dart';
-import 'package:note_app/Screens/Home_Screen.dart';
+import 'package:note_app/Screens/Screen_Home.dart';
 import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
@@ -103,8 +103,8 @@ class ScreenEditNote extends StatelessWidget {
                       fontSize: 20,
                       color: themeprovider.Headline_Color(),
                     ),
-                    maxLines: 4,
-                    maxLength: 100,
+                    maxLines: null,
+                    maxLength: null,
                   ),
                 ],
               ),

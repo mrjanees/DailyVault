@@ -51,43 +51,57 @@ class ScreenFavorite extends StatelessWidget {
             child: ValueListenableBuilder(
               valueListenable: favListNotifier,
               builder: (context, newvalue, child) {
-                return ListView.separated(
-                    itemBuilder: (context, index) {
-                      final data = newvalue[index];
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                  colors: themeprovider.Theme_note())),
-                          child: ListTile(
-                            title: Text(
-                              data.title,
-                              style: const TextStyle(
-                                  color: App_colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text(
-                              data.content,
-                              style: const TextStyle(color: App_colors.white),
-                            ),
-                            trailing: IconButton(
-                              color: App_colors.white,
-                              icon: const Icon(Icons.delete),
-                              onPressed: () {
-                                FavFunction().deleteFAvData(data.id);
-                              },
-                            ),
-                          ),
+                return newvalue.isEmpty
+                    ? const Padding(
+                        padding: EdgeInsets.only(top: 150),
+                        child: Text(
+                          'No Favorites',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 136, 135, 135)),
                         ),
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
-                    itemCount: favListNotifier.value.length);
+                      )
+                    : ListView.separated(
+                        itemBuilder: (context, index) {
+                          final data = newvalue[index];
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: LinearGradient(
+                                      colors: themeprovider.Theme_note())),
+                              child: ListTile(
+                                title: Text(
+                                  data.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      color: App_colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(
+                                  data.content,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style:
+                                      const TextStyle(color: App_colors.white),
+                                ),
+                                trailing: IconButton(
+                                  color: App_colors.white,
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () {
+                                    FavFunction().deleteFAvData(data.id);
+                                  },
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return Divider();
+                        },
+                        itemCount: favListNotifier.value.length);
               },
             ),
           ),

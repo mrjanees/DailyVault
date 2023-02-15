@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/Screens/Screen_Favorite.dart';
-import 'package:note_app/Provider/Fav_Icon/Fav_Icon.dart';
+
 import 'package:note_app/favorite_model/favoriteModel.dart';
 import 'package:provider/provider.dart';
 
@@ -55,10 +55,8 @@ class FavFunction extends ChangeNotifier implements FavDataCalling {
     var contain = data.where((element) => element.id == id);
     if (contain.isEmpty) {
       _iconval = false;
-      notifyListeners();
     } else {
       _iconval = true;
-      notifyListeners();
     }
     return iconval;
   }

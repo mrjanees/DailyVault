@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:note_app/Screens/Home_Screen.dart';
+import 'package:note_app/Screens/Screen_Home.dart';
 import 'package:note_app/Provider/App_Color/color_constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -89,7 +89,7 @@ class ThemeProvider with ChangeNotifier {
     if (IsLightTheme) {
       return Color.fromARGB(255, 234, 234, 234);
     } else {
-      return Color.fromARGB(255, 47, 47, 47);
+      return Color.fromARGB(255, 58, 58, 58);
     }
   }
 }

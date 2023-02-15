@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/Provider/Search_Provider/SearchProvider.dart';
+import 'package:note_app/Screens/Screen_Favorite.dart';
 import 'package:provider/provider.dart';
 
 import '../Function/Note_Data_Calling.dart';
@@ -29,123 +31,150 @@ class MyNote extends StatelessWidget {
       },
     );
     // ValueNotifier<bool> FavIcon = ValueNotifier(false);
-    return GestureDetector(
-      onLongPress: () {
-        showDialog(
-            context: context,
-            builder: (ctx) {
-              return AlertDialog(
-                title: Text('Delete'),
-                content: Text('Do you want to delete ?'),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text('Cancel')),
-                  TextButton(
-                      onPressed: () {
-                        Data_fuctions.instance.Delete_all(id!);
-                        FavFunction.instanse.deleteFAvData(id!);
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text('Ok'))
-                ],
-              );
-            });
-      },
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (ctx) {
-              return ScreenEditNote(
-                id: id,
+    return Column(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onLongPress: () {
+              showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return AlertDialog(
+                      elevation: 5.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      backgroundColor:
+                          context.watch<ThemeProvider>().Inside_Text_color(),
+                      // icon: Icon(
+                      //   Icons.delete,
+                      //   color: context.watch<ThemeProvider>().Inside_Text_color(),
+                      // ),
+                      title: Text(
+                        'Delete',
+                        style: TextStyle(
+                            color: context
+                                .watch<ThemeProvider>()
+                                .Headline_Color()),
+                      ),
+                      content: Text(
+                        'Do you want to delete ?',
+                        style: TextStyle(
+                            color: context
+                                .watch<ThemeProvider>()
+                                .Headline_Color()),
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: context
+                                      .watch<ThemeProvider>()
+                                      .Headline_Color()),
+                            )),
+                        TextButton(
+                            onPressed: () {
+                              Data_fuctions.instance.Delete_all(id!);
+                              FavFunction.instanse.deleteFAvData(id!);
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text(
+                              'Ok',
+                              style: TextStyle(
+                                  color: context
+                                      .watch<ThemeProvider>()
+                                      .Headline_Color()),
+                            ))
+                      ],
+                    );
+                  });
+            },
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) {
+                    return ScreenEditNote(
+                      id: id,
+                    );
+                  },
+                ),
               );
             },
-          ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: context.watch<ThemeProvider>().Theme_note()),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.only(left: 5, top: 5),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 20,
-              child: Row(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: context.watch<ThemeProvider>().Theme_note(),
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.only(top: 5, left: 5),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 105,
+                  Row(
+                    children: [
+                      Container(
+                        width: 138,
+                        child: Text(
+                          title!,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints(),
+                          iconSize: 22,
+                          color: Colors.white,
+                          onPressed: () {
+                            favSaveClick(title, content, id);
+                          },
+                          // ignore: unrelated_type_equality_checks
+                          icon:
+                              context.watch<FavFunction>().isexistfunction(id!)
+                                  ? const Icon(Icons.favorite)
+                                  : const Icon(Icons.favorite_border)),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 7,
+                  ),
+                  const Divider(
+                    thickness: 1,
+                    height: 1,
+                    indent: 1,
+                    endIndent: 7,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Expanded(
                     child: Text(
-                      title!,
+                      content!,
+                      maxLines: 8,
                       style: const TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  IconButton(
-                      padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
-                      iconSize: 20,
-                      color: Colors.white,
-                      onPressed: () {
-                        favSaveClick(title, content, id);
-                      },
-                      // ignore: unrelated_type_equality_checks
-                      icon: context.watch<FavFunction>().isexistfunction(id!)
-                          ? const Icon(Icons.favorite)
-                          : const Icon(Icons.favorite_border)),
-                  const VerticalDivider(
-                    width: 15,
-                    color: Colors.white,
-                    thickness: 1.5,
-                    endIndent: 1,
-                    indent: 1,
-                  ),
-                  IconButton(
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                    iconSize: 22,
-                    onPressed: () {
-                      Data_fuctions.instance.Delete_all(id!);
-                      FavFunction.instanse.deleteFAvData(id!);
-                    },
-                    icon: const Icon(
-                      Icons.cancel_rounded,
-                      color: Color.fromARGB(255, 255, 255, 255),
+                          fontSize: 14,
+                          overflow: TextOverflow.ellipsis),
+                      textAlign: TextAlign.start,
                     ),
                   )
                 ],
               ),
             ),
-            const SizedBox(
-              height: 7,
-            ),
-            const Divider(
-              thickness: 1.5,
-              height: 2,
-              indent: 1,
-              endIndent: 7,
-              color: Colors.white,
-            ),
-            Text(
-              content!,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-                fontSize: 15,
-              ),
-              textAlign: TextAlign.start,
-            )
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 

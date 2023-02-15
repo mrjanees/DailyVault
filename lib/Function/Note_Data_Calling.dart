@@ -39,7 +39,9 @@ class Data_fuctions extends Data_calls {
     );
 
     final getnoteRes = NoteModelList.fromJson(_response.data);
+
     NoteNotifier.value.clear();
+
     NoteNotifier.value.addAll(getnoteRes.data.reversed);
     NoteNotifier.notifyListeners();
     return getnoteRes.data;

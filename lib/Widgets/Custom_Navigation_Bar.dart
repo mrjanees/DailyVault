@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:provider/provider.dart';
 
-import 'Provider/App_Color/App_theme.dart';
+import '../Provider/App_Color/App_theme.dart';
 
 ValueNotifier<int> currentIndexNotifier = ValueNotifier(0);
 
@@ -41,7 +41,7 @@ class NAvigationBar extends StatelessWidget {
               CustomNavigationBarItem(
                   icon: const Icon(Icons.favorite),
                   title: Text(
-                    'Favorite',
+                    'Favorites',
                     style: TextStyle(color: themeProvider.Headline_Color()),
                   ))
             ],
