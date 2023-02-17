@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../note_model/note_model.dart';
 
 ValueNotifier<List<NoteModel>> searchNotifier =
-    ValueNotifier(List.from(NoteNotifier.value));
+    ValueNotifier(List.from(noteNotifier.value));
 
 class ScreenSearch extends StatelessWidget {
   const ScreenSearch({super.key});
@@ -98,9 +98,9 @@ class ScreenSearch extends StatelessWidget {
 
 void filtersearch(String title) {
   if (title.isEmpty) {
-    searchNotifier.value = NoteNotifier.value.toList();
+    searchNotifier.value = noteNotifier.value.toList();
   } else {
-    searchNotifier.value = NoteNotifier.value
+    searchNotifier.value = noteNotifier.value
         .where((element) =>
             element.title!.toLowerCase().contains(title.toLowerCase()))
         .toList();
