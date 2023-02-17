@@ -9,19 +9,19 @@ import 'package:note_app/Screens/Screen_All_Notes.dart';
 import 'package:note_app/note_model/note_model.dart';
 import 'package:provider/provider.dart';
 
-final TextEditingController Title_Textformfield = TextEditingController();
-final TextEditingController Content_Textformfield = TextEditingController();
-final _ScaffoldKey = GlobalKey<ScaffoldState>();
+final TextEditingController titleTextformfield = TextEditingController();
+final TextEditingController contentTextformfield = TextEditingController();
+final scaffoldKey = GlobalKey<ScaffoldState>();
 
 class ScreenEditNote extends StatelessWidget {
   final String? id;
-  ScreenEditNote({super.key, required this.id});
+  const ScreenEditNote({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    final Checked_id = Data_fuctions.instance.EditNoteBy_id(id!);
-    Title_Textformfield.text = Checked_id!.title ?? 'No Title';
-    Content_Textformfield.text = Checked_id.content ?? 'No Content';
+    final checkedId = Data_fuctions.instance.editNoteById(id!);
+    titleTextformfield.text = checkedId!.title ?? 'No Title';
+    contentTextformfield.text = checkedId.content ?? 'No Content';
     final themeprovider = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: Scaffold(
@@ -33,22 +33,22 @@ class ScreenEditNote extends StatelessWidget {
           ),
           child: SingleChildScrollView(
             child: ConstrainedBox(
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               child: Column(
                 children: [
                   Row(
                     children: [
                       IconButton(
                         padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(),
+                        constraints: const BoxConstraints(),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        icon: Icon(Icons.arrow_circle_left_sharp),
+                        icon: const Icon(Icons.arrow_circle_left_sharp),
                         color: themeprovider.Headline_Color(),
                         iconSize: 30,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 100,
                       ),
                       Container(
@@ -65,21 +65,21 @@ class ScreenEditNote extends StatelessWidget {
                               color: themeprovider.Inside_Text_color()),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 90,
                       ),
                       IconButton(
                         color: themeprovider.Headline_Color(),
                         padding: EdgeInsets.zero,
-                        constraints: BoxConstraints(),
+                        constraints: const BoxConstraints(),
                         onPressed: () async {
-                          await clicktoedit();
+                          clicktoedit();
                           Navigator.of(context)
                               .pop(MaterialPageRoute(builder: (context) {
                             return const ScreenAllNotes();
                           }));
                         },
-                        icon: Icon(Icons.check_circle),
+                        icon: const Icon(Icons.check_circle),
                       )
                     ],
                   ),
@@ -88,7 +88,7 @@ class ScreenEditNote extends StatelessWidget {
                   ),
                   TextField(
                     decoration: null,
-                    controller: Title_Textformfield,
+                    controller: titleTextformfield,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 40,
@@ -98,7 +98,7 @@ class ScreenEditNote extends StatelessWidget {
                   const SizedBox(height: 20),
                   TextField(
                     decoration: null,
-                    controller: Content_Textformfield,
+                    controller: contentTextformfield,
                     style: TextStyle(
                       fontSize: 20,
                       color: themeprovider.Headline_Color(),
@@ -116,9 +116,9 @@ class ScreenEditNote extends StatelessWidget {
   }
 
   Future<void> clicktoedit() async {
-    final title = Title_Textformfield.text;
-    final content = Content_Textformfield.text;
+    final title = titleTextformfield.text;
+    final content = contentTextformfield.text;
     final editednote = NoteModel.create(id: id, title: title, content: content);
-    Data_fuctions.instance.update_all(editednote);
+    Data_fuctions.instance.updateAll(editednote);
   }
 }

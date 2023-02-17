@@ -99,7 +99,7 @@ class ScreenFavorite extends StatelessWidget {
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return Divider();
+                          return const Divider();
                         },
                         itemCount: favListNotifier.value.length);
               },

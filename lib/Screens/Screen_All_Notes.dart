@@ -125,9 +125,9 @@ class ScreenAllNotes extends StatelessWidget {
               ),
               Expanded(
                   child: ValueListenableBuilder(
-                valueListenable: NoteNotifier,
+                valueListenable: noteNotifier,
                 builder: (context, List<NoteModel> newValue, child) {
-                  return NoteNotifier.value.isEmpty
+                  return noteNotifier.value.isEmpty
                       ? const Padding(
                           padding: EdgeInsets.only(top: 150),
                           child: Text(

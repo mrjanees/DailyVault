@@ -57,14 +57,14 @@ class ScreenAddnote extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 20,
             left: 10,
             right: 10,
           ),
           child: SingleChildScrollView(
             child: ConstrainedBox(
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               child: Column(
                 children: [
                   Row(
@@ -73,15 +73,15 @@ class ScreenAddnote extends StatelessWidget {
                         children: [
                           IconButton(
                             padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
+                            constraints: const BoxConstraints(),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            icon: Icon(Icons.arrow_circle_left_sharp),
+                            icon: const Icon(Icons.arrow_circle_left_sharp),
                             color: themeprovider.Headline_Color(),
                             iconSize: 30,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 100,
                           ),
                           Container(
@@ -156,7 +156,7 @@ class ScreenAddnote extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () async {
                         Click_to_Save();
-                        await Data_fuctions.instance.Get_all();
+                        await Data_fuctions.instance.GetAll();
                         Title_Textformfield.clear();
                         Content_Textformfield.clear();
                         Navigator.of(context).pop(
@@ -210,7 +210,7 @@ class ScreenAddnote extends StatelessWidget {
       );
 
       await Data_fuctions().create_all(_data);
-      Data_fuctions.instance.Get_all();
+      Data_fuctions.instance.GetAll();
     }
   }
 }

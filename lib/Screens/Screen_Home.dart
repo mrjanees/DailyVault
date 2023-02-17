@@ -12,14 +12,13 @@ import '../Provider/App_Color/App_theme.dart';
 import '../Widgets/Custom_Navigation_Bar.dart';
 import '../Function/Note_Data_Calling.dart';
 
-const double VD_length = 0;
 List pages = const [
   ScreenAllNotes(),
   ScreenFavorite(),
 ];
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -32,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isAlert = false;
   var snackbar = SnackBar(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-    backgroundColor: Color.fromARGB(255, 238, 237, 237),
+    backgroundColor: const Color.fromARGB(255, 238, 237, 237),
     content: Row(children: const [
       Icon(
         Icons.wifi_off_outlined,
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .onConnectivityChanged
         .listen((ConnectivityResult result) async {
       isDeviceConnected = await InternetConnectionChecker().hasConnection;
-      if (isDeviceConnected == false && isAlert == false) {
+      if (!isDeviceConnected && !isAlert) {
         showDialogBox();
         setState(() {
           isAlert = true;
@@ -80,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final favIconProvider = Provider.of<FavFunction>(context, listen: false);
-      Data_fuctions.instance.Get_all();
+      Data_fuctions.instance.GetAll();
     });
 
     return Scaffold(
